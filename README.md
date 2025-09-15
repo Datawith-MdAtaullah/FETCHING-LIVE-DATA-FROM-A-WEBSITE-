@@ -24,12 +24,13 @@ HTTP Function (crawling_genes) → Manually trigger scraping via browser or curl
 ---
 
 ## 🏗 Project Structure
+``` bash 
 functions/
 │── main.py # Main scraping + Firebase Functions logic
 │── requirements.txt # Python dependencies
 firebase.json # Firebase configuration
 .firebaserc # Project alias for deployment
-
+```
 
 ---
 
