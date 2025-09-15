@@ -4,6 +4,7 @@ from scraping.medlineplus import scrape_and_save
 import json
 from firebase_functions.https_fn import Request, Response
 from api_gene.get_gene_data import get_gene_data_logic
+from api_gene.get_gene_data import api_logic
 
 initialize_app()
 
@@ -24,3 +25,10 @@ def scheduled_genes_files(event: pubsub_fn.CloudEvent[pubsub_fn.MessagePublished
 @https_fn.on_request()
 def api(req:Request) -> Response:
     return get_gene_data_logic(req)
+
+
+
+   
+@https_fn.on_request()
+def api2(req:Request) -> Response:
+    return api_logic(req)
