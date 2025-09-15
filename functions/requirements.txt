@@ -5,3 +5,4 @@ firebase-functions
 functions-framework
 google-cloud-storage
 firebase-admin
+flask

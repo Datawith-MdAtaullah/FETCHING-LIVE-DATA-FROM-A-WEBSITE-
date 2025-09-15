@@ -4,6 +4,8 @@ import requests
 import concurrent.futures
 import json
 from google.cloud import storage
+from werkzeug.wrappers import Response
+from api.api_prac import app
 
 bucketname = 'enigmagenomics-internship.firebasestorage.app'
 
@@ -66,3 +68,10 @@ def crawling_genes(req: https_fn.Request) -> https_fn.Response:
 def scheduled_genes_files(event: pubsub_fn.CloudEvent[pubsub_fn.MessagePublishedData]) -> None:
     total_genes, msg = scrape_and_save()
     print(f"Scheduled completed, total genes: {total_genes}")
+    
+    
+@https_fn.on_request()
+def my_api(req: https_fn.Request):
+    environ = req.environ
+    response = Response.from_app(app, environ)
+    return response
