@@ -84,16 +84,21 @@ Runs automatically via Cloud Scheduler → Pub/Sub → scheduled_genes_files
 
 ## 📊 Execution Flow
 
+## 📊 Execution Flow
+
 ```mermaid
 flowchart TD
-    A[Cloud Scheduler<br>(Weekly: Mon 1 AM UTC)] --> B[Pub/Sub Topic<br>weekly-crawl-genes]
-    B --> C[Pub/Sub Function: scheduled_genes_files<br>- Receives CloudEvent<br>- Calls scrape_and_save()<br>- Scrapes MedlinePlus gene pages<br>- Saves each gene JSON in GCS<br>- Logs total genes]
+    A["Cloud Scheduler (Weekly)"] --> B["Pub/Sub Topic: weekly-crawl-genes"]
+    B --> C["Pub/Sub Function: scheduled_genes_files
+    - Calls scrape_and_save()
+    - Updates JSON in GCS"]
 
-    D[HTTPS Function: crawling_genes<br>- Manual trigger via browser/curl<br>- Calls scrape_and_save()<br>- Returns total genes in JSON]
-
-    C --> E[Google Cloud Storage (GCS)<br>- Bucket: genes/<br>- Stores each gene JSON]
-    D --> E
+    D["HTTP Function: crawling_genes
+    - Manual trigger
+    - Calls scrape_and_save()"] --> E["Google Cloud Storage (GCS)
+    - Stores gene JSONs"]
 ```
+
 ## 📝 Example Output (per gene JSON)
 ``` bash
 {
