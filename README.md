@@ -7,7 +7,8 @@ The data is scraped **A → Z** and stored as **JSON files in Google Cloud Stora
 
 ## 🚀 Features
 It uses Firebase Cloud Functions (Python) and Google Cloud Storage (GCS) to provide:
-#### 🧬 Automated Gene Scraping
+
+### 🧬 Automated Gene Scraping
 
 Scrapes all gene pages A → Z from MedlinePlus.
 
@@ -15,11 +16,11 @@ Extracts gene names and their associated conditions.
 
 Stores each gene as an individual JSON file in a GCS bucket (genes/all_genes_separate_files/GENE.json).
 
-#### ⚡ Cloud Function Triggers
+### ⚡ Cloud Function Triggers
 
 HTTP Function (crawling_genes) → Manually trigger scraping via browser or curl.
 
-Pub/Sub Scheduled Function (scheduled_genes_files) → Runs weekly via Cloud Scheduler → Pub/Sub, updating gene data automatically
+##### Pub/Sub Scheduled Function (scheduled_genes_files) → Runs weekly via Cloud Scheduler → Pub/Sub, updating gene data automatically
 ---
 
 ## 🏗 Project Structure
