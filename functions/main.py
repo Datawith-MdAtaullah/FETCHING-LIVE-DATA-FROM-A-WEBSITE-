@@ -1,11 +1,10 @@
 from firebase_functions import https_fn, pubsub_fn
 from bs4 import BeautifulSoup
-import requests
+import requests 
 import concurrent.futures
 import json
 from google.cloud import storage
-from werkzeug.wrappers import Response
-from api.api_prac import app
+from firebase_functions.https_fn import Request, Response
 
 bucketname = 'enigmagenomics-internship.firebasestorage.app'
 
@@ -70,8 +69,34 @@ def scheduled_genes_files(event: pubsub_fn.CloudEvent[pubsub_fn.MessagePublished
     print(f"Scheduled completed, total genes: {total_genes}")
     
     
+
 @https_fn.on_request()
-def my_api(req: https_fn.Request):
-    environ = req.environ
-    response = Response.from_app(app, environ)
-    return response
+def findgenes(req: Request) -> Response:
+    g = req.args.get("search")  
+    if not g:
+        return Response(json.dumps({"error": "Missing ?search=GENE"}), status=400)
+
+    file_path = f"genes/all_genes_separate_files/{g.upper()}.json"
+
+    try:
+        c = storage.Client()
+        b = c.bucket(bucketname)
+        o = b.blob(file_path)
+
+        if not o.exists():
+            return Response(
+                json.dumps({"error": f"{g} not found"}),
+                status=404,
+                mimetype="application/json"
+            )
+
+        t = o.download_as_text()
+        data = json.loads(t)
+        return Response(
+            json.dumps(data, ensure_ascii=False),
+            status=200,
+            mimetype="application/json"
+        )
+
+    except Exception as e:
+        return Response(json.dumps({"error": str(e)}), status=500)
