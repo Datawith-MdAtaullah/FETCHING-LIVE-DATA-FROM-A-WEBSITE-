@@ -11,7 +11,7 @@ def get_gene_data_logic(req:Request) -> Response:
     g = req.args.get('search')
     if not g:
         return Response(
-            json.dumps({'error':'Missing ?search = Gene that you want to find'}),
+            json.dumps({'error':'Missing ?search=Gene that you want to find'}),
             status=400,
             mimetype='application/json'
         )
@@ -77,7 +77,7 @@ def api_logic(req:Request) -> Response:
             )
     else:
         return Response(
-            json.dumps({'error':'Missing ?search = Gene that you want to find'}),
+            json.dumps({'error':'Missing ?search=Gene that you want to find'}),
             status=400,
             mimetype='application/json'
         )
