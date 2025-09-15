@@ -84,8 +84,6 @@ Runs automatically via Cloud Scheduler → Pub/Sub → scheduled_genes_files
 
 ## 📊 Execution Flow
 
-## 📊 Execution Flow
-
 ```mermaid
 flowchart TD
     A["Cloud Scheduler (Weekly)"] --> B["Pub/Sub Topic: weekly-crawl-genes"]
