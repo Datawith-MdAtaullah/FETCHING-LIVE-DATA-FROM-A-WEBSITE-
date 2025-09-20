@@ -3,6 +3,7 @@
 This project automates the process of fetching **gene information and related conditions** from [MedlinePlus Genetics](https://medlineplus.gov/genetics/gene).  
 The data is scraped **A → Z** and stored as **JSON files in Google Cloud Storage (Firebase Storage)**.
 
+#### visit branch => for-api => ignore rest branches
 ---
 
 ## 🚀 Features
