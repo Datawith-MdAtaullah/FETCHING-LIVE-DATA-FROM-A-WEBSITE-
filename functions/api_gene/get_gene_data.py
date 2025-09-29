@@ -4,10 +4,10 @@ import json
 from firebase_admin import storage as s
 
 my_bucket = 'enigmagenomics-internship.firebasestorage.app'
-file_path = 'genes/all_genes_separate_files/'
+file_path = 'genes/new_infos_added_to_gene/'
 
-        
-def api_logic(req:Request) -> Response:
+# this is the api for getting gene data of single file from my bucket       
+def get_gene_api(req:Request) -> Response:
     z = req.args.get('search')
     
     if z:
