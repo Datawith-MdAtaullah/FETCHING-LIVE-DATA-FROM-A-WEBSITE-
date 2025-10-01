@@ -21,19 +21,10 @@ def crawling_genes_updated(req:Request) -> Response:
 # applying schedular to run automatically per week 
 @pubsub_fn.on_message_published(topic="weekly-crawl-genes_updated", timeout_sec=540) 
 def scheduled_weekly_run_updated(event: pubsub_fn.CloudEvent[pubsub_fn.MessagePublishedData]) -> None: 
-    
-    try:
-        data = event.data.message.json
         
-    except (ValueError, AttributeError):
-        try:
-            data = event.data.message.data.decode("utf-8")
-        except AttributeError:
-            data = "No message"
-        
-    print(f"Message from scheduler: {data}")
+    print("Crawling Started...")
     total_genes, msg = crawling_function() 
-    print(f"Scheduled completed, total genes: {total_genes}") 
+    print(f"Crawling Finished...& Scheduled completed, total genes: {total_genes}") 
    
     
 # API for single searching genes     
